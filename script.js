@@ -15,7 +15,7 @@ function makePageForEpisodes(episodeList) {
   tvShowFooter();
 }
 
-// our select function
+// Select function
 function selectTvShowInput(episode) {
   let selectInput = document.createElement("select");
   tvShowForm.appendChild(selectInput);
@@ -34,7 +34,6 @@ function selectTvShowInput(episode) {
     optionInput.value = episode.name;
     console.log(optionInput);
   });
-
 
   selectInput.addEventListener("change", (e) => {
     blockCards.innerHTML = " ";
@@ -82,7 +81,7 @@ function tvShowSearchBar() {
       );
     });
 
-    console.log("forEach: ", filteredCharacters);
+    // console.log("forEach: ", filteredCharacters);
     filteredCharacters.forEach((episode) => addEpisode(episode));
     // console.log("filter: ", filteredCharacters.forEach((episode) => addEpisode(episode)));
   });
