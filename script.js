@@ -23,7 +23,6 @@ function selectTvShowInput(episode) {
   optionInput.innerText = "Show all Episode";
   optionInput.value = "";
   selectInput.appendChild(optionInput);
-
   allEpisodes.forEach((episode) => {
     let optionInput = document.createElement("option");
     optionInput.innerText = `S${episode.season
@@ -36,18 +35,17 @@ function selectTvShowInput(episode) {
     console.log(optionInput);
   });
 
-  selectInput.addEventListener("change",  (e) => {
+
+  selectInput.addEventListener("change", (e) => {
     blockCards.innerHTML = " ";
     const inputSelect = e.target.value;
     const filteredCharacters = allEpisodes.filter((character) => {
-      return (
-        character.name.includes(inputSelect)
-      );
+      return character.name.includes(inputSelect);
     });
 
     console.log("forEach: ", filteredCharacters);
     filteredCharacters.forEach((episode) => addEpisode(episode));
-  })
+  });
 }
 
 function addEpisode(episode) {
@@ -64,8 +62,6 @@ function addEpisode(episode) {
   let tvShowSummary = document.createElement("p");
   tvShowSummary.innerHTML = episode.summary;
   blockCards.appendChild(tvShowSummary);
-
-
 }
 
 // Search Function
