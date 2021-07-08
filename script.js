@@ -9,24 +9,47 @@ function setup() {
 }
 
 function makePageForEpisodes(episodeList) {
-  console.log(episodeList);
   selectTvShowInput(episodeList);
   tvShowSearchBar();
   allEpisodes.forEach((episode) => addEpisode(episode));
   tvShowFooter();
 }
+
 // our select function
 function selectTvShowInput(episode) {
   let selectInput = document.createElement("select");
   tvShowForm.appendChild(selectInput);
+  let optionInput = document.createElement("option");
+  optionInput.innerText = "Show all Episode";
+  optionInput.value = "";
+  selectInput.appendChild(optionInput);
+
   allEpisodes.forEach((episode) => {
     let optionInput = document.createElement("option");
     optionInput.innerText = `S${episode.season
       .toString()
-      .padStart(2, 0)}E${episode.number.toString().padStart(2, 0)} - ${episode.name}`;
+      .padStart(2, 0)}E${episode.number.toString().padStart(2, 0)} - ${
+      episode.name
+    }`;
     selectInput.appendChild(optionInput);
+    optionInput.value = episode.name;
+    console.log(optionInput);
   });
+
+  selectInput.addEventListener("change",  (e) => {
+    blockCards.innerHTML = " ";
+    const inputSelect = e.target.value;
+    const filteredCharacters = allEpisodes.filter((character) => {
+      return (
+        character.name.includes(inputSelect)
+      );
+    });
+
+    console.log("forEach: ", filteredCharacters);
+    filteredCharacters.forEach((episode) => addEpisode(episode));
+  })
 }
+
 function addEpisode(episode) {
   let tvShowName = document.createElement("h2");
   tvShowName.innerText = `${episode.name} - S${episode.season
@@ -41,6 +64,8 @@ function addEpisode(episode) {
   let tvShowSummary = document.createElement("p");
   tvShowSummary.innerHTML = episode.summary;
   blockCards.appendChild(tvShowSummary);
+
+
 }
 
 // Search Function
@@ -60,8 +85,10 @@ function tvShowSearchBar() {
         character.summary.toLowerCase().includes(searchString)
       );
     });
-    console.log(filteredCharacters);
+
+    console.log("forEach: ", filteredCharacters);
     filteredCharacters.forEach((episode) => addEpisode(episode));
+    // console.log("filter: ", filteredCharacters.forEach((episode) => addEpisode(episode)));
   });
 }
 
