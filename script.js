@@ -32,7 +32,6 @@ function selectTvShowInput(episode) {
     }`;
     selectInput.appendChild(optionInput);
     optionInput.value = episode.name;
-    console.log(optionInput);
   });
 
   selectInput.addEventListener("change", (e) => {
@@ -42,7 +41,6 @@ function selectTvShowInput(episode) {
       return character.name.includes(inputSelect);
     });
 
-    console.log("forEach: ", filteredCharacters);
     filteredCharacters.forEach((episode) => addEpisode(episode));
   });
 }
@@ -67,12 +65,13 @@ function addEpisode(episode) {
 function tvShowSearchBar() {
   let gmCharacters = [];
   const searchBar = document.getElementById("searchBar");
+  let episodeDisplay = document.createElement("p");
+  tvShowForm.appendChild(episodeDisplay);
 
   // here we needed to see if the input value is showing.
   searchBar.addEventListener("keyup", (e) => {
     blockCards.innerHTML = " ";
     const searchString = e.target.value.toLowerCase();
-    console.log("result: ", searchString);
 
     const filteredCharacters = allEpisodes.filter((character) => {
       return (
@@ -81,16 +80,17 @@ function tvShowSearchBar() {
       );
     });
 
-    // console.log("forEach: ", filteredCharacters);
     filteredCharacters.forEach((episode) => addEpisode(episode));
-    // console.log("filter: ", filteredCharacters.forEach((episode) => addEpisode(episode)));
+    let charactersLength = filteredCharacters.length;
+    console.log(charactersLength);
+    episodeDisplay.innerText = `Displaying ${charactersLength}/73 episodes`;
+
   });
 }
 
 // footer function
 function tvShowFooter() {
   let siteFooter = document.createElement("footer");
-  console.log(siteFooter);
   document.body.appendChild(siteFooter);
   let footerParagraph = document.createElement("p");
   let link = document.createElement("A");
