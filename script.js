@@ -3,6 +3,26 @@ const allEpisodes = getAllEpisodes();
 const blockCards = document.getElementById("block-cards");
 const tvShowForm = document.getElementById("form");
 
+fetch("https://api.tvmaze.com/shows/82/episodes")
+  .then((response) => {
+    if (response.status >= 200 && response.status <= 299) {
+      return response.json();
+    } else {
+      throw new Error(
+        `Encountered something unexpected: ${response.status} ${response.statusText}`
+      );
+    }
+  })
+  .then((data) => {
+    // do whatever you want with the JSON response
+    console.log(data);
+    data = data
+  })
+  .catch((error) => {
+    // Handle the error
+    console.log(error);
+  });
+
 //You can edit ALL of the code here
 function setup() {
   makePageForEpisodes(allEpisodes);
