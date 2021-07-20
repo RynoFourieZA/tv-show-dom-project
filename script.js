@@ -1,5 +1,4 @@
 // Get all episodes globally
-const allEpisodes = getAllEpisodes();
 const blockCards = document.getElementById("block-cards");
 const tvShowForm = document.getElementById("form");
 
@@ -15,28 +14,30 @@ fetch("https://api.tvmaze.com/shows/82/episodes")
   })
   .then((data) => {
     // do whatever you want with the JSON response
-    console.log(data);
-    data = data
+    // console.log(data);
+     setup(data);
   })
-  .catch((error) => {
-    // Handle the error
-    console.log(error);
-  });
-
+  // .catch((error) => {
+  //   // Handle the error
+  //   console.log(error);
+  // });
+  
 //You can edit ALL of the code here
-function setup() {
+function setup(allEpisodes) {
+
   makePageForEpisodes(allEpisodes);
+
 }
 
-function makePageForEpisodes(episodeList) {
-  selectTvShowInput(episodeList);
-  tvShowSearchBar();
+function makePageForEpisodes(allEpisodes) {
+  selectTvShowInput(allEpisodes);
+  tvShowSearchBar(allEpisodes);
   allEpisodes.forEach((episode) => addEpisode(episode));
   tvShowFooter();
 }
 
 // Select function
-function selectTvShowInput(episode) {
+function selectTvShowInput(allEpisodes) {
   let selectInput = document.createElement("select");
   tvShowForm.appendChild(selectInput);
   let optionInput = document.createElement("option");
@@ -82,7 +83,7 @@ function addEpisode(episode) {
 }
 
 // Search Function
-function tvShowSearchBar() {
+function tvShowSearchBar(allEpisodes) {
   let gmCharacters = [];
   const searchBar = document.getElementById("searchBar");
   let episodeDisplay = document.createElement("p");
@@ -121,4 +122,4 @@ function tvShowFooter() {
   footerParagraph.appendChild(link);
 }
 
-window.onload = setup;
+// window.onload = setup;
