@@ -15,7 +15,7 @@ fetch("https://api.tvmaze.com/shows/82/episodes")
   .then((data) => {
     // do whatever you want with the JSON response
     // console.log(data);
-     setup(data);
+    makePageForEpisodes(data);
   })
   // .catch((error) => {
   //   // Handle the error
@@ -23,11 +23,11 @@ fetch("https://api.tvmaze.com/shows/82/episodes")
   // });
   
 //You can edit ALL of the code here
-function setup(allEpisodes) {
+// function setup(allEpisodes) {
 
-  makePageForEpisodes(allEpisodes);
+//   makePageForEpisodes(allEpisodes);
 
-}
+// }
 
 function makePageForEpisodes(allEpisodes) {
   selectTvShowInput(allEpisodes);
@@ -122,4 +122,3 @@ function tvShowFooter() {
   footerParagraph.appendChild(link);
 }
 
-// window.onload = setup;
