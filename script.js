@@ -15,20 +15,28 @@ function selectShows(shows) {
     let optionInput = document.createElement("option");
     optionInput.innerText = `${show.name}`;
     selectInput.appendChild(optionInput);
-    optionInput.value = show.name || show.id;
+    optionInput.value = show.name;
   });
 
   selectInput.addEventListener("change", (e) => {
-    blockCards.innerHTML = " ";
+    blockCards.innerHTML = "";
     const inputSelect = e.target.value;
     console.log("This is my select event: ", inputSelect);
-    found = shows.find((show) => {
+    // let found = shows.find((show) => {
+    //   if (show.name === inputSelect) {
+    //     return show.id;
+    //   }
+
+    // });
+    const filteredShows = shows.find((show) => {
       if (show.name === inputSelect) {
-        return show.id;
+        return show;
       }
     });
+    console.log("filtered id; ", filteredShows);
+    // filteredShows.forEach((show) => addEpisode(show));
 
-    fetch(`https://api.tvmaze.com/shows/${found.id}/episodes`)
+    fetch(`https://api.tvmaze.com/shows/${filteredShows.id}/episodes`)
       .then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -40,7 +48,6 @@ function selectShows(shows) {
       })
       .then((data) => {
         // do whatever you want with the JSON response
-        // console.log(data);
         makePageForEpisodes(data);
       });
   });
@@ -75,18 +82,18 @@ function selectTvShowInput(allEpisodes) {
   });
 
   selectInput.addEventListener("change", (e) => {
-    blockCards.innerHTML = " ";
+    blockCards.innerHTML = "";
     const inputSelect = e.target.value;
     const filteredCharacters = allEpisodes.filter((character) => {
       return character.name.includes(inputSelect);
     });
-
     filteredCharacters.forEach((episode) => addEpisode(episode));
   });
 }
 
 function addEpisode(episode) {
   let tvShowName = document.createElement("h2");
+  console.log("this is: ", episode);
   tvShowName.innerText = `${episode.name} - S${episode.season
     .toString()
     .padStart(2, 0)}E${episode.number.toString().padStart(2, 0)}`; // First used back ticks, use string interpolation then target object and its property, get an array convert to string, use padStart it adds 2 digits
@@ -138,5 +145,5 @@ function tvShowFooter() {
   footerParagraph.innerText = `The data displayed on this page was originally taken from: `;
   siteFooter.appendChild(footerParagraph);
   footerParagraph.appendChild(link);
+  console.log("Footer");
 }
-
