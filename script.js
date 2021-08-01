@@ -59,17 +59,30 @@ function makePageForEpisodes(allEpisodes) {
   selectTvShowInput(allEpisodes);
   tvShowSearchBar(allEpisodes);
   allEpisodes.forEach((episode) => addEpisode(episode));
-  tvShowFooter();
 }
 
-// Select function
+// Select function episodes
 function selectTvShowInput(allEpisodes) {
-  let selectInput = document.createElement("select");
+  let selectInput;
+  // intro.setAttribute('id', 'Introduction_ 1')
+
+  if (!document.getElementById("selectOriginal")) {
+    selectInput = document.createElement("select");
+    selectInput.setAttribute("id", "selectOriginal");
+  } else {
+    selectInput = document.getElementById("selectOriginal");
+    let optionInput = document.createElement("option");
+    optionInput.innerText = "Show all Episode";
+    optionInput.value = "";
+    selectInput.innerHTML = `${optionInput}`;
+  }
+
   tvShowForm.appendChild(selectInput);
   let optionInput = document.createElement("option");
   optionInput.innerText = "Show all Episode";
   optionInput.value = "";
   selectInput.appendChild(optionInput);
+
   allEpisodes.forEach((episode) => {
     let optionInput = document.createElement("option");
     optionInput.innerText = `S${episode.season
@@ -77,6 +90,7 @@ function selectTvShowInput(allEpisodes) {
       .padStart(2, 0)}E${episode.number.toString().padStart(2, 0)} - ${
       episode.name
     }`;
+
     selectInput.appendChild(optionInput);
     optionInput.value = episode.name;
   });
@@ -147,3 +161,4 @@ function tvShowFooter() {
   footerParagraph.appendChild(link);
   console.log("Footer");
 }
+tvShowFooter();
